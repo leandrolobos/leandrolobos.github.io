@@ -2,189 +2,323 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Leandro Lobos</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
   <style>
-    * {
-      box-sizing: border-box;
+    :root {
+      --brand: #6b8afd;
+      --brand-ink: #13224d;
+      --bg: #0b1020;
+      --bg-soft: #0f1630;
+      --text: #e6e8ee;
+      --muted: #a9b0c6;
+      --card: #121a36;
+      --chip: #1a2450;
+      --border: rgba(255,255,255,0.08);
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+    }
+    @media (prefers-color-scheme: light) {
+      :root {
+        --bg: #f6f8fc;
+        --bg-soft: #fff;
+        --text: #1e2333;
+        --muted: #5b617a;
+        --card: #ffffff;
+        --chip: #eef2ff;
+        --border: rgba(0,0,0,0.08);
+        --shadow: 0 8px 24px rgba(10,22,70,.08);
+      }
     }
 
+    * { box-sizing: border-box }
+    html { scroll-behavior: smooth }
     body {
       margin: 0;
-      padding: 2rem 1rem;
-      font-family: 'Inter', sans-serif;
-      background: #f7f9fc;
-      color: #2d2d2d;
+      font-family: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+      color: var(--text);
+      background: radial-gradient(1200px 600px at 80% -100px, rgba(107,138,253,.18), transparent 60%),
+                  radial-gradient(900px 500px at -10% -80px, rgba(88,203,255,.16), transparent 55%),
+                  var(--bg);
     }
+
+    /* ======= NAVBAR ======= */
+    .nav {
+      position: sticky; top: 0; z-index: 50;
+      backdrop-filter: saturate(140%) blur(8px);
+      background: color-mix(in oklab, var(--bg-soft) 70%, transparent);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav .wrap { max-width: 1100px; margin: 0 auto; padding: .75rem 1rem; display:flex; align-items:center; gap:1rem }
+    .brand { display:flex; align-items:center; gap:.6rem; font-weight:700; letter-spacing:.3px }
+    .logo { width:36px; height:36px; border-radius:10px; display:grid; place-items:center; font-weight:700; background: linear-gradient(135deg, var(--brand) 0%, #8ad0ff 100%); color: white; box-shadow: var(--shadow) }
+
+    .menu { margin-left:auto; display:flex; gap:.25rem; align-items:center }
+    .menu a { text-decoration:none; color: var(--muted); padding:.6rem .8rem; border-radius:10px; font-weight:600; font-size:.95rem; display:inline-block }
+    .menu a:hover { color: var(--text); background: var(--chip); }
+    .menu a.active { color: white; background: linear-gradient(135deg, var(--brand), #8ad0ff); }
+
+    .burger { display:none; margin-left:auto; border:1px solid var(--border); background:transparent; color:var(--text); padding:.55rem .65rem; border-radius:10px }
+
+    @media (max-width: 860px){
+      .menu { display:none }
+      .burger { display:inline-flex }
+      .drawer { position: fixed; inset: 60px 12px auto; background: var(--bg-soft); border:1px solid var(--border); border-radius:14px; box-shadow: var(--shadow); padding:.4rem; display:none; flex-direction:column }
+      .drawer a { padding:.9rem 1rem; border-radius:10px; color:var(--muted); text-decoration:none; font-weight:600 }
+      .drawer a:hover { background: var(--chip); color: var(--text) }
+      .drawer.show { display:flex }
+    }
+
+    /* ======= LAYOUT ======= */
+    .container { max-width: 1100px; margin: 0 auto; padding: 2rem 1rem }
+    section { scroll-margin-top: 90px }
+
+    /* ======= HERO ======= */
+    .hero { padding: 6rem 1rem 3rem }
+    .hero .grid { display:grid; grid-template-columns: 1.2fr .8fr; gap: 2rem; align-items:center }
+    .kicker { color: var(--muted); font-weight:600; letter-spacing:.12em; text-transform: uppercase; font-size:.82rem }
+    .hero h1 { font-size: clamp(2rem, 3.6vw, 3rem); margin:.6rem 0 1rem; line-height:1.15 }
+    .hero p { color: var(--muted); font-size: clamp(1rem, 1.4vw, 1.15rem); }
+    .cta { margin-top: 1.25rem; display:flex; gap:.6rem; flex-wrap: wrap }
+    .btn { border: 1px solid var(--border); background: var(--chip); color: var(--text); text-decoration:none; padding:.8rem 1rem; border-radius:12px; font-weight:700; display:inline-flex; align-items:center; gap:.55rem }
+    .btn.primary { background: linear-gradient(135deg, var(--brand), #8ad0ff); color: white; border-color: transparent }
+    .btn:hover { transform: translateY(-1px); box-shadow: var(--shadow) }
 
     .card {
-      background: white;
-      padding: 2rem;
-      border-radius: 16px;
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
-      text-align: center;
-      max-width: 400px;
-      margin: 0 auto;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 18px; padding: 1.25rem; box-shadow: var(--shadow)
     }
+    .avatar { width: 140px; height: 140px; border-radius: 16px; object-fit: cover; }
+    .badge { display:inline-flex; align-items:center; gap:.45rem; padding:.4rem .6rem; border-radius:999px; background: var(--chip); border:1px solid var(--border); color: var(--muted); font-weight:600; font-size:.85rem }
 
-    .avatar {
-      width: 100px;
-      height: 100px;
-      border-radius: 50%;
-      object-fit: cover;
-      margin-bottom: 1rem;
-    }
+    @media (max-width: 860px){ .hero .grid{ grid-template-columns: 1fr } .hero { padding-top: 4.5rem } }
 
-    h1 {
-      margin: 0.5rem 0 0.25rem;
-      font-size: 1.6rem;
-    }
+    /* ======= SECTIONS ======= */
+    .section-title { font-size: clamp(1.4rem, 2.2vw, 2rem); margin: 0 0 1.25rem }
+    .grid-3 { display:grid; grid-template-columns: repeat(3, 1fr); gap: 1rem }
+    .grid-2 { display:grid; grid-template-columns: repeat(2, 1fr); gap: 1rem }
+    @media (max-width: 860px){ .grid-3, .grid-2{ grid-template-columns: 1fr } }
 
-    p {
-      font-size: 1rem;
-      color: #555;
-      margin-bottom: 1.5rem;
-    }
+    .chiplist { display:flex; flex-wrap:wrap; gap:.6rem }
+    .chip { background: var(--chip); border:1px solid var(--border); color: var(--text); display:inline-flex; align-items:center; gap:.5rem; padding:.55rem .75rem; border-radius:999px; font-weight:600; }
+    .chip img { width:18px; height:18px; border-radius:4px }
 
-    .btn {
-      display: block;
-      width: 100%;
-      padding: 0.75rem;
-      border: none;
-      border-radius: 8px;
-      font-weight: 600;
-      font-size: 1rem;
-      cursor: pointer;
-      margin-bottom: 1rem;
-      text-decoration: none;
-      transition: 0.2s ease;
-    }
+    /* ======= TIMELINE ======= */
+    .timeline { position: relative; padding-left: 1rem }
+    .timeline::before { content:""; position:absolute; left:12px; top:0; bottom:0; width:2px; background: var(--border) }
+    .tl-item { position:relative; padding-left: 2.2rem; margin: 1rem 0 }
+    .tl-item::before { content:""; position:absolute; left:4px; top:.4rem; width:18px; height:18px; border-radius:50%; background: linear-gradient(135deg, var(--brand), #8ad0ff); box-shadow:0 0 0 4px color-mix(in oklab, var(--brand) 25%, transparent) }
 
-    .btn.linkedin {
-      background-color: #0077b5;
-      color: white;
-    }
+    /* ======= PROJECTS ======= */
+    .project { display:flex; gap:1rem; align-items:flex-start; padding:1rem; border:1px solid var(--border); border-radius:16px; background: var(--bg-soft) }
+    .project h4 { margin:.1rem 0 .35rem }
+    .tag { font-size:.82rem; color: var(--muted); border:1px solid var(--border); padding:.2rem .5rem; border-radius:999px }
 
-    .btn.linkedin:hover {
-      background-color: #005f8d;
-    }
+    /* ======= CONTACT ======= */
+    .contact-card { text-align:center; padding: 1.25rem; }
+    .contact-actions { display:flex; justify-content:center; gap:.6rem; flex-wrap:wrap; margin-top:.6rem }
 
-    .btn.contact {
-      background-color: white;
-      color: #333;
-      border: 2px solid #ccc;
-    }
-
-    .btn.contact:hover {
-      border-color: #999;
-    }
-
-    .info-section {
-      max-width: 800px;
-      margin: 3rem auto 1rem;
-      padding: 0 1rem;
-    }
-
-    .info-section h2 {
-      font-size: 1.2rem;
-      margin-top: 2rem;
-      border-bottom: 1px solid #ddd;
-      padding-bottom: 0.5rem;
-      color: #333;
-    }
-
-    .info-list {
-      list-style: none;
-      padding: 0;
-      margin: 1rem 0;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
-    }
-
-    .info-list li {
-      display: flex;
-      align-items: center;
-      background: #f0f2f5;
-      border-radius: 6px;
-      padding: 0.5rem 0.75rem;
-      font-size: 0.95rem;
-    }
-
-    .info-list li img {
-      width: 20px;
-      height: 20px;
-      margin-right: 0.5rem;
-    }
-
-    footer.footer {
-      text-align: center;
-      font-size: 0.75rem;
-      color: #aaa;
-      margin-top: 3rem;
-    }
-
-    @media (max-width: 600px) {
-      .card {
-        padding: 1.5rem;
-      }
-
-      .info-list {
-        flex-direction: column;
-      }
-
-      h1 {
-        font-size: 1.4rem;
-      }
-
-      .info-list li {
-        justify-content: flex-start;
-        width: 100%;
-      }
-    }
+    /* ======= FOOTER / TO‑TOP ======= */
+    footer { text-align:center; color: var(--muted); padding: 2rem 1rem }
+    .to-top { position: fixed; right: 18px; bottom: 18px; opacity: 0; pointer-events:none; transform: translateY(8px); transition: .2s ease; }
+    .to-top.show { opacity: 1; pointer-events:auto; transform: translateY(0) }
   </style>
 </head>
 <body>
-  <div class="card">
-    <img src="assets/profile.jpg" alt="Foto de perfil" class="avatar" />
-    <h1>Leandro Lobos</h1>
-    <p>Analista de Datos Senior y Product Owner, especializado en conectar negocio y tecnología para generar soluciones que transforman la gestión de la información en valor estratégico. 
-      <br>Lidero proyectos de Business Intelligence y Transformación Digital, impulsando la automatización de reportes, la gobernanza de datos y la cultura data-driven en toda la organización. 
-      <br>Mi diferencial es integrar datos, procesos y metodologías ágiles para facilitar decisiones estratégicas y guiar iniciativas de mejora continua en entornos dinámicos.</p>
-    <a class="btn linkedin" href="https://www.linkedin.com/in/leandrolobos" target="_blank">LinkedIn</a>
-    <a class="btn contact" href="mailto:contacto@leandrolobos.com.ar">Contactame</a>
-  </div>
+  <!-- NAVBAR -->
+  <nav class="nav">
+    <div class="wrap">
+      <div class="brand"><div class="logo">LL</div> Leandro Lobos</div>
+      <div class="menu" id="menu">
+        <a href="#inicio">Inicio</a>
+        <a href="#stack">Stack</a>
+        <a href="#metodologias">Soluciones</a>
+        <a href="#formacion">Conocimiento</a>
+        <a href="#proyectos">Proyectos</a>
+        <a href="#contacto">Contacto</a>
+      </div>
+      <button class="burger" id="burger" aria-label="Abrir menú">☰</button>
+    </div>
+    <div class="drawer" id="drawer">
+      <a href="#inicio">Inicio</a>
+      <a href="#stack">Stack</a>
+      <a href="#metodologias">Soluciones</a>
+      <a href="#formacion">Conocimiento</a>
+      <a href="#proyectos">Proyectos</a>
+      <a href="#contacto">Contacto</a>
+    </div>
+  </nav>
 
-  <section class="info-section">
-    <h2>Stack de tecnologías</h2>
-    <ul class="info-list">
-      <li><img src="assets/fabric.png" alt="Fabric" />Fabric</li>
-      <li><img src="assets/powerbi.png" alt="Power BI" />Power BI</li>
-      <li><img src="assets/sql.png" alt="SQL" />SQL</li>
-      <li><img src="assets/excel.png" alt="Excel" />Excel</li>
-    </ul>
+  <!-- HERO -->
+  <header id="inicio" class="hero container">
+    <div class="grid">
+      <div>
+        <span class="badge kicker">Senior Data Analyst · Product Owner</span>
+        <h1>Conecto negocio y tecnología para convertir datos en decisiones.</h1>
+        <p>
+          Lidero iniciativas de Business Intelligence y Transformación Digital: automatización de reportes, gobernanza de datos y cultura data‑driven. Integro datos, procesos y metodologías ágiles para impulsar mejora continua en contextos dinámicos.
+        </p>
+        <div class="cta">
+          <a class="btn primary" href="mailto:contacto@leandrolobos.com.ar">Contactame</a>
+          <a class="btn" href="https://www.linkedin.com/in/leandrolobos" target="_blank" rel="noopener">LinkedIn</a>
+          <a class="btn" href="#proyectos">Ver proyectos</a>
+        </div>
+      </div>
+      <div class="card" style="justify-self:end; text-align:center">
+        <img class="avatar" src="assets/profile.jpg" alt="Foto de Leandro" />
+        <div style="margin-top:.8rem; color:var(--muted)">Mendoza, AR · Disponible para proyectos</div>
+      </div>
+    </div>
+  </header>
 
-    <h2>Metodologías y frameworks</h2>
-    <ul class="info-list">
-      <li><img src="assets/scrum.png" alt="Scrum" />Scrum</li>
-      <li><img src="assets/kanban.png" alt="Kanban" />Kanban</li>
-      <li><img src="assets/lean.png" alt="LEAN" />LEAN</li>
-      <li><img src="assets/diagram.png" alt="BPMN" />BPMN</li>
-      <li><img src="assets/process.png" alt="As-Is / To-Be" />As-Is / To-Be</li>
-    </ul>
-
-    <h2>Desarrollo profesional</h2>
-    <ul class="info-list">
-      <li><img src="assets/unsl.png" alt="UNSL" />UNSL: Lic. Análisis y Gestión de Datos</li>
-      <li><img src="assets/utn.png" alt="UTN" />UTN: Transformación Digital</li>
-      <li><img src="assets/umich.png" alt="UMich" />U. Michigan: Liderazgo de Equipos</li>
-      <li><img src="assets/upenn.png" alt="UPenn" />U. Pennsylvania: English for Business</li>
-    </ul>
+  <!-- STACK -->
+  <section id="stack" class="container">
+    <h2 class="section-title">Stack de tecnologías</h2>
+    <div class="card">
+      <p class="muted" style="margin:.2rem 0 .9rem"><strong>Soluciones impulsadas por datos:</strong> aprovecho el ecosistema Microsoft para crear analítica clara, confiable y orientada a negocio.</p>
+      <div class="chiplist">
+        <span class="chip"><img src="assets/powerbi.png" alt="Power BI"/> Microsoft Power BI</span>
+        <span class="chip"><img src="assets/fabric.png" alt="Microsoft Fabric"/> Microsoft Fabric</span>
+        <span class="chip"><img src="assets/excel.png" alt="Excel"/> Microsoft Excel</span>
+        <span class="chip"><img src="assets/sql.png" alt="SQL"/> SQL</span>
+      </div>
+    </div>
   </section>
 
-  <footer class="footer">
-    © 2025 - Leandro Lobos
+  <!-- SOLUCIONES -->
+  <section id="metodologias" class="container">
+    <h2 class="section-title">Soluciones y metodologías</h2>
+    <div class="grid-3">
+      <div class="card">
+        <h3>Gestión ágil</h3>
+        <p style="color:var(--muted)">Equipos enfocados en entregar valor real, con planificación flexible, visibilidad total y mejora continua.</p>
+        <div class="chiplist">
+          <span class="chip">Scrum</span>
+          <span class="chip">Kanban</span>
+          <span class="chip">OKRs</span>
+        </div>
+      </div>
+      <div class="card">
+        <h3>Optimización de procesos</h3>
+        <p style="color:var(--muted)">Análisis y rediseño de procesos para ganar eficiencia, reducir riesgos y acelerar resultados.</p>
+        <div class="chiplist">
+          <span class="chip">BPMN</span>
+          <span class="chip">As‑Is / To‑Be</span>
+          <span class="chip">Lean</span>
+        </div>
+      </div>
+      <div class="card">
+        <h3>Datos con propósito</h3>
+        <p style="color:var(--muted)">Gobernanza y analítica confiable para decisiones basadas en información clara y medible.</p>
+        <div class="chiplist">
+          <span class="chip">Data Governance</span>
+          <span class="chip">BI</span>
+          <span class="chip">Analytics</span>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- CONOCIMIENTO -->
+  <section id="formacion" class="container">
+    <h2 class="section-title">Conocimiento y desarrollo profesional</h2>
+    <div class="card">
+      <p class="muted" style="margin:.2rem 0 .9rem">
+        Formación y certificaciones que respaldan un enfoque práctico y vigente. Mantengo una actualización profesional constante para elevar la calidad de los productos de datos.
+      </p>
+      <div class="chiplist">
+        <span class="chip"><img src="assets/unsl.png" alt="UNSL"/><strong>Universidad Nacional de San Luis</strong> · Lic. en Análisis y Gestión de Datos</span>
+        <span class="chip"><img src="assets/utn.png" alt="UTN"/><strong>Universidad Tecnológica Nacional</strong> · Diplomatura en Transformación Digital</span>
+        <span class="chip"><img src="assets/umich.png" alt="UMich"/><strong>University of Michigan</strong> · Liderazgo de equipos</span>
+        <span class="chip"><img src="assets/upenn.png" alt="UPenn"/><strong>University of Pennsylvania</strong> · English for Business and Entrepreneurship</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROYECTOS -->
+  <section id="proyectos" class="container">
+    <h2 class="section-title">Proyectos destacados</h2>
+    <div class="grid-2">
+      <article class="project">
+        <div>
+          <h4>Arquitectura de datos empresarial</h4>
+          <p class="muted">Product Owner del Proyecto de Datos en <strong>Sandra Marzzan</strong>. Lideré la arquitectura en Microsoft Fabric, definí los modelos de datos y alineé los KPIs con los OKRs. Resultado: tableros unificados y adopción de decisiones data-driven en instancias de seguimiento y planificación.</p>
+          <span class="tag">Microsoft Fabric</span> <span class="tag">Power BI</span> <span class="tag">OKRs</span> 
+        </div>
+      </article>
+      <article class="project">
+        <div>
+          <h4>Tablero estratégico de KPIs</h4>
+          <p class="muted">Para la unidad de retail de <strong>Grupo Broda</strong>, modelado estrella con DAX y automatización de publicaciones. Impacto: mayor trazabilidad y reducción de tiempos de reporting.</p>
+          <span class="tag">Power BI</span> <span class="tag">DAX</span> <span class="tag">KPIs</span>
+        </div>
+      </article>
+      <article class="project">
+        <div>
+          <h4>Migración ERP a la nube</h4>
+          <p class="muted">En <strong>Grupo Broda</strong>, lideré evaluación e implementación, documentando procesos AS‑IS/TO‑BE. Beneficios: base para integraciones móviles y optimización de costos.</p>
+          <span class="tag">Mejora de procesos</span> <span class="tag">Cloud</span> <span class="tag">APIs</span>
+        </div>
+      </article>
+      <article class="project">
+        <div>
+          <h4>Estandarización de procesos administrativos</h4>
+          <p class="muted">En <strong>Electroniko's Ind</strong>, implementé controles y normalicé circuitos administrativos para mejorar eficiencia operativa y la calidad de la información.</p>
+          <span class="tag">Mejora de procesos</span> <span class="tag">Control de gestión</span>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- CONTACTO -->
+  <section id="contacto" class="container">
+    <h2 class="section-title">Contacto</h2>
+    <div class="card contact-card">
+      <p style="color:var(--muted); margin-top:0">¿Agendamos una reunión?</p>
+      <div class="contact-actions">
+        <a class="btn primary" href="mailto:contacto@leandrolobos.com.ar">contacto@leandrolobos.com.ar</a>
+        <a class="btn" href="https://www.linkedin.com/in/leandrolobos" target="_blank" rel="noopener">LinkedIn</a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    © 2025 · Leandro Lobos
   </footer>
+
+  <a href="#inicio" class="btn to-top" id="toTop" aria-label="Volver arriba">▲</a>
+
+  <script>
+    // Mobile drawer
+    const burger = document.getElementById('burger');
+    const drawer = document.getElementById('drawer');
+    burger?.addEventListener('click', () => drawer.classList.toggle('show'));
+    drawer?.querySelectorAll('a').forEach(a => a.addEventListener('click', () => drawer.classList.remove('show')));
+
+    // Scrollspy (marca el link activo)
+    const links = Array.from(document.querySelectorAll('.menu a, .drawer a'));
+    const sections = links.map(a => document.querySelector(a.getAttribute('href'))).filter(Boolean);
+    const makeActive = (id) => {
+      links.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + id));
+    };
+    const io = new IntersectionObserver((entries) => {
+      const vis = entries.filter(e => e.isIntersecting).sort((a,b)=> b.intersectionRatio - a.intersectionRatio)[0];
+      if (vis) makeActive(vis.target.id);
+    }, { rootMargin: '-40% 0px -55% 0px', threshold: [0, .25, .6, 1] });
+    sections.forEach(sec => io.observe(sec));
+
+    // Botón to-top
+    const toTop = document.getElementById('toTop');
+    const onScroll = () => {
+      if (window.scrollY > 600) toTop.classList.add('show'); else toTop.classList.remove('show');
+    };
+    document.addEventListener('scroll', onScroll, { passive:true });
+  </script>
+
+  <style>
+    /* Helpers */
+    .muted { color: var(--muted) }
+  </style>
 </body>
 </html>
