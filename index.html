@@ -58,7 +58,6 @@
     .menu a:hover { color: var(--text); background: var(--chip); }
     .menu a.active { color: white; background: linear-gradient(135deg, var(--brand), #8ad0ff); }
 
-    /* Burger button: oculto en escritorio */
     .burger {
       display:none;
       margin-left:auto;
@@ -74,10 +73,9 @@
     .burger:focus { outline: 2px solid color-mix(in oklab, var(--brand) 50%, transparent); outline-offset:2px }
     .burger:hover { background: color-mix(in oklab, var(--brand) 20%, transparent) }
 
-    /* Drawer: siempre oculto en escritorio */
     .drawer { display:none; }
 
-    @media (max-width: 860px){
+    @media (max-width: 1024px){
       .menu { display:none }
       .burger { display:inline-flex; align-items:center; justify-content:center; border:1px solid var(--border); background: var(--chip) }
       .drawer {
@@ -105,7 +103,6 @@
     .hero { padding: 6rem 1rem 3rem }
     .hero .grid { display:grid; grid-template-columns: 1.2fr .8fr; gap: 2rem; align-items:center }
 
-    /* Card de perfil: derecha en desktop, izquierda en móvil */
     .hero-card { justify-self:end; text-align:center }
     @media (max-width: 1024px){
       .hero .grid{ grid-template-columns: 1fr }
@@ -126,17 +123,10 @@
       border-radius: 18px; padding: 1.25rem; box-shadow: var(--shadow)
     }
 
-    /* Avatar circular */
-    .avatar { 
-      width: 140px; 
-      height: 140px; 
-      border-radius: 50%; 
-      object-fit: cover; 
-      aspect-ratio: 1 / 1; 
-    }
-    @media (max-width: 860px){
+    .avatar { width:140px; height:140px; border-radius:50%; object-fit:cover; aspect-ratio:1/1; }
+    @media (max-width:1024px){
       .hero { padding-top: 4.5rem }
-      .avatar { width: 120px; height: 120px }
+      .avatar { width:120px; height:120px }
     }
 
     .badge { display:inline-flex; align-items:center; gap:.45rem; padding:.4rem .6rem; border-radius:999px; background: var(--chip); border:1px solid var(--border); color: var(--muted); font-weight:600; font-size:.85rem }
@@ -188,8 +178,8 @@
       <div class="menu" id="menu">
         <a href="#inicio">Inicio</a>
         <a href="#stack">Stack</a>
-        <a href="#metodologias">Soluciones</a>
-        <a href="#formacion">Conocimiento</a>
+        <a href="#soluciones">Soluciones</a>
+        <a href="#conocimiento">Conocimiento</a>
         <a href="#proyectos">Proyectos</a>
         <a href="#contacto">Contacto</a>
       </div>
@@ -198,8 +188,8 @@
     <div class="drawer" id="drawer" role="dialog" aria-label="Menú">
       <a href="#inicio">Inicio</a>
       <a href="#stack">Stack</a>
-      <a href="#metodologias">Soluciones</a>
-      <a href="#formacion">Conocimiento</a>
+      <a href="#soluciones">Soluciones</a>
+      <a href="#conocimiento">Conocimiento</a>
       <a href="#proyectos">Proyectos</a>
       <a href="#contacto">Contacto</a>
     </div>
@@ -220,7 +210,6 @@
           <a class="btn" href="#proyectos">Ver proyectos</a>
         </div>
       </div>
-
       <div class="card hero-card">
         <img class="avatar" src="assets/profile.jpg" alt="Foto de Leandro" />
         <div style="margin-top:.8rem; color:var(--muted)">Mendoza, AR · Disponible para proyectos</div>
@@ -243,7 +232,7 @@
   </section>
 
   <!-- SOLUCIONES -->
-  <section id="metodologias" class="container">
+  <section id="soluciones" class="container">
     <h2 class="section-title">Soluciones y metodologías</h2>
     <div class="grid-3">
       <div class="card">
@@ -277,7 +266,7 @@
   </section>
   
   <!-- CONOCIMIENTO -->
-  <section id="formacion" class="container">
+  <section id="conocimiento" class="container">
     <h2 class="section-title">Conocimiento y desarrollo profesional</h2>
     <div class="card">
       <p class="muted" style="margin:.2rem 0 .9rem">
@@ -288,17 +277,14 @@
           <div class="line1"><img src="assets/unsl.png" alt="UNSL"/><span>Univ. Nacional de San Luis</span></div>
           <div class="line2">Lic. en Análisis de Datos</div>
         </span>
-
         <span class="chip cred stack">
           <div class="line1"><img src="assets/utn.png" alt="UTN"/><span>Univ. Tecnológica Nacional</span></div>
           <div class="line2">Dipl. en Transformación Digital</div>
         </span>
-
         <span class="chip cred stack">
           <div class="line1"><img src="assets/umich.png" alt="UMich"/><span>University of Michigan</span></div>
           <div class="line2">Liderazgo de equipos</div>
         </span>
-
         <span class="chip cred stack">
           <div class="line1"><img src="assets/upenn.png" alt="UPenn"/><span>University of Pennsylvania</span></div>
           <div class="line2">English for Business</div>
@@ -328,14 +314,14 @@
       <article class="project">
         <div>
           <h4>Implementación de ERP en la nube</h4>
-          <p class="muted">En <strong>Grupo Broda</strong>, lideré la evaluación y migración del ERP al entorno cloud, documentando procesos AS-IS/TO-BE y garantizando continuidad operativa. Beneficios: base sólida para integraciones con otros sistemas, optimización de costos y mayor escalabilidad.</p>
+          <p class="muted">En <strong>Grupo Broda</strong>, lideré la evaluación y migración del ERP al entorno cloud, documentando procesos AS-IS/TO-BE. Beneficios: base sólida para integraciones con otros sistemas, optimización de costos y mayor escalabilidad.</p>
           <span class="tag">Mejora de procesos</span> <span class="tag">Cloud</span> <span class="tag">APIs</span>
         </div>
       </article>
       <article class="project">
         <div>
           <h4>Estandarización de procesos administrativos</h4>
-          <p class="muted">En <strong>Electroniko's Ind</strong>, implementé controles y normalicé circuitos administrativos para mejorar eficiencia operativa y la calidad de la información.</p>
+          <p class="muted">En <strong>Electroniko's Ind</strong>, implementé controles y normalicé circuitos administrativos para mejorar eficiencia operativa y calidad de la información.</p>
           <span class="tag">Mejora de procesos</span> <span class="tag">Control de gestión</span>
         </div>
       </article>
@@ -376,7 +362,7 @@
       })
     );
 
-    // Scrollspy (marca el link activo)
+    // Scrollspy (link activo)
     const links = Array.from(document.querySelectorAll('.menu a, .drawer a'));
     const sections = links.map(a => document.querySelector(a.getAttribute('href'))).filter(Boolean);
     const makeActive = (id) => {
@@ -385,20 +371,14 @@
     const io = new IntersectionObserver((entries) => {
       const vis = entries.filter(e => e.isIntersecting).sort((a,b)=> b.intersectionRatio - a.intersectionRatio)[0];
       if (vis) makeActive(vis.target.id);
-    }, { rootMargin: '-40% 0px -55% 0px', threshold: [0, .25, .6, 1] });
+    }, { rootMargin: '-40% 0px -45% 0px', threshold: [0, .25, .6, 1] });
     sections.forEach(sec => io.observe(sec));
 
     // Botón to-top
     const toTop = document.getElementById('toTop');
-    const onScroll = () => {
-      if (window.scrollY > 600) toTop.classList.add('show'); else toTop.classList.remove('show');
-    };
-    document.addEventListener('scroll', onScroll, { passive:true });
+    document.addEventListener('scroll', () => {
+      toTop.classList.toggle('show', window.scrollY > 600);
+    }, { passive:true });
   </script>
-
-  <style>
-    /* Helpers */
-    .muted { color: var(--muted) }
-  </style>
 </body>
 </html>
