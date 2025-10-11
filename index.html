@@ -132,6 +132,20 @@
     .chip { background: var(--chip); border:1px solid var(--border); color: var(--text); display:inline-flex; align-items:center; gap:.5rem; padding:.55rem .75rem; border-radius:999px; font-weight:600; }
     .chip img { width:18px; height:18px; border-radius:4px }
 
+    /* ======= CREDENCIALES ======= */
+    .chip.cred.stack { 
+      display:inline-flex; 
+      flex-direction:column; 
+      align-items:flex-start; 
+      gap:.2rem; 
+      padding:.6rem .8rem; 
+      border-radius:12px; 
+      max-width:100%;
+    }
+    .chip.cred.stack .line1 { display:flex; align-items:center; gap:.45rem; font-weight:700 }
+    .chip.cred.stack .line2 { font-weight:600; color: var(--muted); line-height:1.15 }
+    .chip.cred.stack img { width:18px; height:18px; border-radius:4px }
+
     /* ======= TIMELINE ======= */
     .timeline { position: relative; padding-left: 1rem }
     .timeline::before { content:""; position:absolute; left:12px; top:0; bottom:0; width:2px; background: var(--border) }
@@ -256,10 +270,25 @@
         Formación y certificaciones que respaldan un enfoque práctico y vigente. Mantengo una actualización profesional constante para elevar la calidad de los productos de datos.
       </p>
       <div class="chiplist">
-        <span class="chip"><img src="assets/unsl.png" alt="UNSL"/><strong>UNSL</strong> · Lic. en Análisis y Gestión de Datos</span>
-        <span class="chip"><img src="assets/utn.png" alt="UTN"/><strong>UTN</strong> · Dipl. en Transformación Digital</span>
-        <span class="chip"><img src="assets/umich.png" alt="UMich"/><strong>U. Michigan</strong> · Liderazgo de equipos</span>
-        <span class="chip"><img src="assets/upenn.png" alt="UPenn"/><strong>U. Pennsylvania</strong> · English for Business</span>
+        <span class="chip cred stack">
+          <div class="line1"><img src="assets/unsl.png" alt="UNSL"/><span>Universidad Nacional de San Luis</span></div>
+          <div class="line2">Licenciatura en Análisis y Gestión de Datos</div>
+        </span>
+
+        <span class="chip cred stack">
+          <div class="line1"><img src="assets/utn.png" alt="UTN"/><span>Universidad Tecnológica Nacional</span></div>
+          <div class="line2">Diplomatura en Transformación Digital</div>
+        </span>
+
+        <span class="chip cred stack">
+          <div class="line1"><img src="assets/umich.png" alt="UMich"/><span>University of Michigan</span></div>
+          <div class="line2">Liderazgo de equipos</div>
+        </span>
+
+        <span class="chip cred stack">
+          <div class="line1"><img src="assets/upenn.png" alt="UPenn"/><span>University of Pennsylvania</span></div>
+          <div class="line2">English for Business</div>
+        </span>
       </div>
     </div>
   </section>
