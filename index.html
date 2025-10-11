@@ -104,6 +104,14 @@
     /* ======= HERO ======= */
     .hero { padding: 6rem 1rem 3rem }
     .hero .grid { display:grid; grid-template-columns: 1.2fr .8fr; gap: 2rem; align-items:center }
+
+    /* Card de perfil: derecha en desktop, izquierda en móvil */
+    .hero-card { justify-self:end; text-align:center }
+    @media (max-width: 1024px){
+      .hero .grid{ grid-template-columns: 1fr }
+      .hero-card { justify-self:start; text-align:left }
+    }
+
     .kicker { color: var(--muted); font-weight:600; letter-spacing:.12em; text-transform: uppercase; font-size:.82rem }
     .hero h1 { font-size: clamp(2rem, 3.6vw, 3rem); margin:.6rem 0 1rem; line-height:1.15 }
     .hero p { color: var(--muted); font-size: clamp(1rem, 1.4vw, 1.15rem); }
@@ -117,10 +125,21 @@
       border: 1px solid var(--border);
       border-radius: 18px; padding: 1.25rem; box-shadow: var(--shadow)
     }
-    .avatar { width: 140px; height: 140px; border-radius: 16px; object-fit: cover; }
-    .badge { display:inline-flex; align-items:center; gap:.45rem; padding:.4rem .6rem; border-radius:999px; background: var(--chip); border:1px solid var(--border); color: var(--muted); font-weight:600; font-size:.85rem }
 
-    @media (max-width: 860px){ .hero .grid{ grid-template-columns: 1fr } .hero { padding-top: 4.5rem } }
+    /* Avatar */
+    .avatar { 
+      width: 140px; 
+      height: 140px; 
+      border-radius: 50%; 
+      object-fit: cover; 
+      aspect-ratio: 1 / 1; 
+    }
+    @media (max-width: 860px){
+      .hero { padding-top: 4.5rem }
+      .avatar { width: 120px; height: 120px }
+    }
+
+    .badge { display:inline-flex; align-items:center; gap:.45rem; padding:.4rem .6rem; border-radius:999px; background: var(--chip); border:1px solid var(--border); color: var(--muted); font-weight:600; font-size:.85rem }
 
     /* ======= SECTIONS ======= */
     .section-title { font-size: clamp(1.4rem, 2.2vw, 2rem); margin: 0 0 1.25rem }
@@ -145,12 +164,6 @@
     .chip.cred.stack .line1 { display:flex; align-items:center; gap:.45rem; font-weight:700 }
     .chip.cred.stack .line2 { font-weight:600; color: var(--muted); line-height:1.15 }
     .chip.cred.stack img { width:18px; height:18px; border-radius:4px }
-
-    /* ======= TIMELINE ======= */
-    .timeline { position: relative; padding-left: 1rem }
-    .timeline::before { content:""; position:absolute; left:12px; top:0; bottom:0; width:2px; background: var(--border) }
-    .tl-item { position:relative; padding-left: 2.2rem; margin: 1rem 0 }
-    .tl-item::before { content:""; position:absolute; left:4px; top:.4rem; width:18px; height:18px; border-radius:50%; background: linear-gradient(135deg, var(--brand), #8ad0ff); box-shadow:0 0 0 4px color-mix(in oklab, var(--brand) 25%, transparent) }
 
     /* ======= PROJECTS ======= */
     .project { display:flex; gap:1rem; align-items:flex-start; padding:1rem; border:1px solid var(--border); border-radius:16px; background: var(--bg-soft) }
@@ -207,7 +220,8 @@
           <a class="btn" href="#proyectos">Ver proyectos</a>
         </div>
       </div>
-      <div class="card" style="justify-self:end; text-align:center">
+
+      <div class="card hero-card">
         <img class="avatar" src="assets/profile.jpg" alt="Foto de Leandro" />
         <div style="margin-top:.8rem; color:var(--muted)">Mendoza, AR · Disponible para proyectos</div>
       </div>
@@ -272,7 +286,7 @@
       <div class="chiplist">
         <span class="chip cred stack">
           <div class="line1"><img src="assets/unsl.png" alt="UNSL"/><span>Univ. Nacional de San Luis</span></div>
-          <div class="line2">Lic. en Análisis y Gestión de Datos</div>
+          <div class="line2">Lic. en Análisis de Datos</div>
         </span>
 
         <span class="chip cred stack">
