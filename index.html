@@ -339,8 +339,13 @@
 
     // Scrollspy
     const links = $$('.menu a, .drawer a');
-    const sections = links.map(a => $(a.getAttribute('href'))).filter(Boolean);
-
+    
+    const sections = [...new Set(
+      links
+        .map(a => $(a.getAttribute('href')))
+        .filter(Boolean)
+    )];
+    
     const setActive = id => {
       links.forEach(a => {
         const active = a.getAttribute('href') === '#' + id;
@@ -348,48 +353,55 @@
         a.setAttribute('aria-current', active ? 'true' : 'false');
       });
     };
-
-    // Click inmediato
+    
+    const updateActive = () => {
+      const offset = NAV_OFFSET + 6;
+      let currentId = sections[0]?.id || '';
+    
+      for (const sec of sections) {
+        const top = sec.getBoundingClientRect().top;
+        if (top - offset <= 0) currentId = sec.id;
+        else break;
+      }
+    
+      const nearBottom = window.innerHeight + window.scrollY >=
+                         document.documentElement.scrollHeight - 2;
+      if (nearBottom && sections.length) currentId = sections.at(-1).id;
+    
+      if (currentId) setActive(currentId);
+    };
+    
     links.forEach(a => a.addEventListener('click', () => {
       const id = a.getAttribute('href')?.slice(1);
       if (id) setActive(id);
+
+      requestAnimationFrame(updateActive);
     }));
+    
+    addEventListener('scroll', () => {
 
-    // IO optimizado con margen que respeta la navbar
-    const io = new IntersectionObserver((entries) => {
-      const vis = entries.filter(e => e.isIntersecting).sort((a,b)=> b.intersectionRatio - a.intersectionRatio)[0];
-      if (vis) setActive(vis.target.id);
-    }, {
-      root: null,
-      rootMargin: `-${Math.max(0, NAV_OFFSET + 10)}px 0px -45% 0px`,
-      threshold: [0.15, 0.4, 0.7, 1]
-    });
-    sections.forEach(sec => io.observe(sec));
-
-    // Fallback inicial + hash
-    const syncActiveOnScroll = () => {
-      const y = window.scrollY + NAV_OFFSET + 1;
-      let currentId = sections[0]?.id || '';
-      for (const sec of sections) if (y >= sec.offsetTop) currentId = sec.id;
-      if (currentId) setActive(currentId);
-    };
-    addEventListener('scroll', syncActiveOnScroll, { passive:true });
-
+      if (!updateActive._ticking) {
+        updateActive._ticking = true;
+        requestAnimationFrame(() => { updateActive(); updateActive._ticking = false; });
+      }
+    }, { passive:true });
+    
     addEventListener('load', () => {
       document.documentElement.classList.remove('no-js');
       $('#year').textContent = String(new Date().getFullYear());
+    
       if (location.hash) {
         const id = location.hash.slice(1);
-        setActive(id);
         const target = document.getElementById(id);
         if (target) {
           const y = target.getBoundingClientRect().top + window.scrollY - NAV_OFFSET;
           window.scrollTo({ top: y, behavior: 'auto' });
+          setActive(id);
         }
       } else {
         setActive('inicio');
       }
-      syncActiveOnScroll();
+      updateActive();
     });
 
     // Botón to-top
